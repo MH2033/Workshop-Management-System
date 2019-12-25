@@ -13,6 +13,8 @@ import java.util.List;
 
 @Entity
 public class User {
+    @Id
+    Integer id;
 
     @NotBlank
     private String firstName;
@@ -23,7 +25,6 @@ public class User {
     @Column(length = 10, unique = true)
     private String nationalCode;
 
-    @Id
     @Column(unique = true, updatable = false)
     private String username;
 
@@ -55,7 +56,8 @@ public class User {
     public User() {
     }
 
-    public User(String firstName, String lastName, String nationalCode, String username, String hashedPassword, String email, String address, String phoneNumber, Gender gender, Date birthDate, List<Role> roles, List<ContactPoint> contactPoints) {
+    public User(Integer id,String firstName, String lastName, String nationalCode, String username, String hashedPassword, String email, String address, String phoneNumber, Gender gender, Date birthDate, List<Role> roles, List<ContactPoint> contactPoints) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.nationalCode = nationalCode;
