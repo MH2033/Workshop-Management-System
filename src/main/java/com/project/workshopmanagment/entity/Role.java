@@ -4,7 +4,6 @@ import javax.persistence.*;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-@Table(name = "Roles")
 public abstract class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)

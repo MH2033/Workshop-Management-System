@@ -11,7 +11,6 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "Users")
 public class User {
 
     @NotBlank
@@ -45,7 +44,7 @@ public class User {
     @OneToMany(fetch = FetchType.LAZY)
     private List<Role> roles;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<ContactPoint> contactPoints;
 
     public User() {

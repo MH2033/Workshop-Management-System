@@ -4,7 +4,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 @Entity
-@Table(name = "ContactPoints")
 public class ContactPoint {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
