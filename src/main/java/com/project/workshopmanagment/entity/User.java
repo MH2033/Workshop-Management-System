@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -19,15 +20,19 @@ public class User {
     private String lastName;
 
     @NotBlank
+    @Column(length = 10, unique = true)
     private String nationalCode;
 
     @Id
+    @Column(unique = true, updatable = false)
     private String username;
 
     @NotBlank
     private String hashedPassword;
 
     @NotBlank
+    @Column(unique = true)
+    @Email
     private String email;
 
     private String address;
