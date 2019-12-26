@@ -1,6 +1,8 @@
 package com.project.workshopmanagment.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.tomcat.jni.Local;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -118,6 +120,8 @@ public class User {
         this.username = username;
     }
 
+    @JsonIgnore
+    @JsonProperty
     public String getHashedPassword() {
         return hashedPassword;
     }
