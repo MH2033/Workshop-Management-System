@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.project.workshopmanagment.entity.enums.Gender;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -71,7 +73,6 @@ public class User {
 
     public User() {
     }
-
     public User(Integer id,String firstName, String lastName, String nationalCode, String username, String hashedPassword, String email, String address, String phoneNumber, Gender gender, Date birthDate, List<ContactPoint> contactPoints, List<GraderRequest> graderRequests, List<OfferedWorkshop> offeredWorkshops) {
         this.id = id;
         this.firstName = firstName;
@@ -121,8 +122,8 @@ public class User {
         this.username = username;
     }
 
-    @JsonIgnore
-    @JsonProperty
+//    @JsonIgnore
+//    @JsonProperty
     public String getHashedPassword() {
         return hashedPassword;
     }
