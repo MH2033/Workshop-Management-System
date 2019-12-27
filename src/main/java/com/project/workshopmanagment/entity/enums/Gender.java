@@ -1,4 +1,4 @@
-package com.project.workshopmanagment.entity;
+package com.project.workshopmanagment.entity.enums;
 
 public enum Gender {
     MALE,

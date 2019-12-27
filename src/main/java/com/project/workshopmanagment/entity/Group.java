@@ -1,6 +1,7 @@
 package com.project.workshopmanagment.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Group {
@@ -13,6 +14,8 @@ public class Group {
     @ManyToOne
     @JoinColumn(name = "offeredCourse_id")
     private OfferedWorkshop offeredWorkshop;
-    //private GraderRequest []graderRequests;
+
+    @OneToMany(mappedBy = "group")
+    private List<GraderRequest> graderRequests;
     //private TakenWorkshop []takenWorkshops;
 }

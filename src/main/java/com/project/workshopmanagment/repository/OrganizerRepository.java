@@ -1,4 +1,4 @@
-package com.project.workshopmanagment.dao;
+package com.project.workshopmanagment.repository;
 
 import com.project.workshopmanagment.entity.Organizer;
 import org.springframework.data.jpa.repository.JpaRepository;

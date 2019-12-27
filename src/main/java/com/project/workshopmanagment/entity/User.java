@@ -1,19 +1,15 @@
 package com.project.workshopmanagment.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.apache.tomcat.jni.Local;
+import com.project.workshopmanagment.entity.enums.Gender;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -63,7 +59,7 @@ public class User {
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastModified;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
     private List<Role> roles;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
