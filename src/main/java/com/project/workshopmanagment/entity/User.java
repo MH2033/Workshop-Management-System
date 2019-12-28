@@ -17,7 +17,7 @@ import java.util.List;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id;
+    private Long id;
 
     @NotBlank
     private String firstName;
@@ -62,13 +62,13 @@ public class User {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
     private List<Role> roles;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<ContactPoint> contactPoints;
 
     public User() {
     }
 
-    public User(Integer id,String firstName, String lastName, String nationalCode, String username, String hashedPassword, String email, String address, String phoneNumber, Gender gender, Date birthDate, List<Role> roles, List<ContactPoint> contactPoints) {
+    public User(Long id, String firstName, String lastName, String nationalCode, String username, String hashedPassword, String email, String address, String phoneNumber, Gender gender, Date birthDate, List<Role> roles, List<ContactPoint> contactPoints) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -166,11 +166,11 @@ public class User {
         this.birthDate = birthDate;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

@@ -1,0 +1,74 @@
+package com.project.workshopmanagment.entity;
+
+import javax.persistence.*;
+import java.util.List;
+
+@Entity
+public class WorkshopGroup {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long databaseId;
+
+    private String groupId;
+
+    public WorkshopGroup() {
+    }
+
+    public WorkshopGroup(Long databaseId, String groupId, OfferedWorkshop offeredWorkshop, List<GraderRequest> graderRequests, List<TakenWorkshop> takenWorkshops) {
+        this.databaseId = databaseId;
+        this.groupId = groupId;
+        this.offeredWorkshop = offeredWorkshop;
+        this.graderRequests = graderRequests;
+        this.takenWorkshops = takenWorkshops;
+    }
+
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "offeredCourse_id")
+    private OfferedWorkshop offeredWorkshop;
+
+    @OneToMany(mappedBy = "workshopGroup", cascade = CascadeType.ALL)
+    private List<GraderRequest> graderRequests;
+
+    @OneToMany(mappedBy = "workshopGroup", cascade = CascadeType.ALL)
+    private List<TakenWorkshop> takenWorkshops;
+
+    public Long getDatabaseId() {
+        return databaseId;
+    }
+
+    public void setDatabaseId(Long databaseId) {
+        this.databaseId = databaseId;
+    }
+
+    public String getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(String groupId) {
+        this.groupId = groupId;
+    }
+
+    public OfferedWorkshop getOfferedWorkshop() {
+        return offeredWorkshop;
+    }
+
+    public void setOfferedWorkshop(OfferedWorkshop offeredWorkshop) {
+        this.offeredWorkshop = offeredWorkshop;
+    }
+
+    public List<GraderRequest> getGraderRequests() {
+        return graderRequests;
+    }
+
+    public void setGraderRequests(List<GraderRequest> graderRequests) {
+        this.graderRequests = graderRequests;
+    }
+
+    public List<TakenWorkshop> getTakenWorkshops() {
+        return takenWorkshops;
+    }
+
+    public void setTakenWorkshops(List<TakenWorkshop> takenWorkshops) {
+        this.takenWorkshops = takenWorkshops;
+    }
+}

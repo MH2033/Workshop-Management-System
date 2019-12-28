@@ -8,17 +8,17 @@ import javax.validation.constraints.NotNull;
 public abstract class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
-    private Integer id;
+    private Long id;
 
     @NotNull
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "user_id")
     private User user;
 
     public Role() {
     }
 
-    public Role(Integer id, User user) {
+    public Role(Long id, User user) {
         this.id = id;
         this.user = user;
         user.getRoles().add(this);
@@ -32,11 +32,12 @@ public abstract class Role {
         this.user = user;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
+
 }

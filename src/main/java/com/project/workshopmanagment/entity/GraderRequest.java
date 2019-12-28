@@ -12,7 +12,7 @@ import java.util.Date;
 public class GraderRequest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
@@ -26,23 +26,23 @@ public class GraderRequest {
     private GraderRequestStatus graderRequestStatus;
     private String graderRoleInWorkshop;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "group_id")
-    private Group group;
+    private WorkshopGroup workshopGroup;
 
     @NotNull
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "grader_id")
     private Grader grader;
 
     public GraderRequest() {
     }
 
-    public GraderRequest(Long id, String graderRoleInWorkshop, Group group, Grader grader) {
+    public GraderRequest(Long id, String graderRoleInWorkshop, WorkshopGroup workshopGroup, Grader grader) {
         this.id = id;
         this.graderRequestStatus = GraderRequestStatus.ON_HOLD;
         this.graderRoleInWorkshop = graderRoleInWorkshop;
-        this.group = group;
+        this.workshopGroup = workshopGroup;
         this.grader = grader;
         grader.getGraderRequests().add(this);
     }
@@ -79,11 +79,11 @@ public class GraderRequest {
         return lastModified;
     }
 
-    public Group getGroup() {
-        return group;
+    public WorkshopGroup getWorkshopGroup() {
+        return workshopGroup;
     }
 
-    public void setGroup(Group group) {
-        this.group = group;
+    public void setWorkshopGroup(WorkshopGroup workshopGroup) {
+        this.workshopGroup = workshopGroup;
     }
 }
