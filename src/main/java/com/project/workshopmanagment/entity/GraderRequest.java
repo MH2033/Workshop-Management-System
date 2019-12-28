@@ -24,30 +24,27 @@ public class GraderRequest {
     private Date lastModified;
 
     private GraderRequestStatus graderRequestStatus;
-
     private String graderRoleInWorkshop;
+
+    @ManyToOne
+    @JoinColumn(name = "group_id")
+    private Group group;
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "group_id", updatable = false)
-    private WorkshopGroup workshopGroup;
-
-    @NotNull
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "user_id", updatable = false)
-    private User user;
+    @JoinColumn(name = "grader_id")
+    private Grader grader;
 
     public GraderRequest() {
     }
 
-    public GraderRequest(Long id, String graderRoleInWorkshop, WorkshopGroup workshopGroup, User user) {
+    public GraderRequest(Long id, String graderRoleInWorkshop, Group group, Grader grader) {
         this.id = id;
         this.graderRequestStatus = GraderRequestStatus.ON_HOLD;
         this.graderRoleInWorkshop = graderRoleInWorkshop;
-        this.workshopGroup = workshopGroup;
-        this.user = user;
-        user.getGraderRequests().add(this);
-        workshopGroup.getGraderRequests().add(this);
+        this.group = group;
+        this.grader = grader;
+        grader.getGraderRequests().add(this);
     }
 
     public Long getId() {
@@ -82,15 +79,11 @@ public class GraderRequest {
         return lastModified;
     }
 
-    public WorkshopGroup getWorkshopGroup() {
-        return workshopGroup;
+    public Group getGroup() {
+        return group;
     }
 
-    public void setWorkshopGroup(WorkshopGroup workshopGroup) {
-        this.workshopGroup = workshopGroup;
-    }
-
-    public User getUser() {
-        return user;
+    public void setGroup(Group group) {
+        this.group = group;
     }
 }

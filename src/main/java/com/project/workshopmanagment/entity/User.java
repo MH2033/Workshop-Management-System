@@ -12,7 +12,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 public class User {
@@ -60,19 +59,16 @@ public class User {
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastModified;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<ContactPoint> contactPoints;
-
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
-    private List<GraderRequest> graderRequests;
+    private List<Role> roles;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE, mappedBy = "organizer")
-    private List<OfferedWorkshop> offeredWorkshops;
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<ContactPoint> contactPoints;
 
     public User() {
     }
 
-    public User(Integer id,String firstName, String lastName, String nationalCode, String username, String hashedPassword, String email, String address, String phoneNumber, Gender gender, Date birthDate, List<ContactPoint> contactPoints, List<GraderRequest> graderRequests, List<OfferedWorkshop> offeredWorkshops) {
+    public User(Integer id,String firstName, String lastName, String nationalCode, String username, String hashedPassword, String email, String address, String phoneNumber, Gender gender, Date birthDate, List<Role> roles, List<ContactPoint> contactPoints) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -84,9 +80,8 @@ public class User {
         this.phoneNumber = phoneNumber;
         this.gender = gender;
         this.birthDate = birthDate;
+        this.roles = roles;
         this.contactPoints = contactPoints;
-        this.graderRequests = graderRequests;
-        this.offeredWorkshops = offeredWorkshops;
     }
 
     public String getFirstName() {
@@ -179,17 +174,17 @@ public class User {
         this.id = id;
     }
 
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
+
     public List<ContactPoint> getContactPoints() {
         return contactPoints;
     }
-
-    public List<GraderRequest> getGraderRequests() {
-        return graderRequests;
-    }
-
-    //public void setGraderRequests(List<GraderRequest> graderRequests) {
-    //    this.graderRequests = graderRequests;
-    //}
 
     public void setContactPoints(List<ContactPoint> contactPoints) {
         this.contactPoints = contactPoints;
@@ -201,13 +196,5 @@ public class User {
 
     public Date getModified() {
         return lastModified;
-    }
-
-    public List<OfferedWorkshop> getOfferedWorkshops() {
-        return offeredWorkshops;
-    }
-
-    public void setOfferedWorkshops(List<OfferedWorkshop> offeredWorkshops) {
-        this.offeredWorkshops = offeredWorkshops;
     }
 }

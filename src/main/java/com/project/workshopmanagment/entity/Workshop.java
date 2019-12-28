@@ -11,7 +11,6 @@ public class Workshop {
     @Id
     private Integer id;
     private String workshopTitle;
-    private String description;
     private int Price;
     File image;
     //private WorkshopRelationship[] workshopRelationships;
