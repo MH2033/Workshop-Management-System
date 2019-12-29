@@ -1,11 +1,14 @@
 package com.project.workshopmanagment.controller;
 
 import com.project.workshopmanagment.entity.User;
+import com.project.workshopmanagment.repository.UserRepository;
 import com.project.workshopmanagment.security.JWTAuthorizationFilter;
 import com.project.workshopmanagment.security.LoginUser;
 import com.project.workshopmanagment.security.Token;
 import com.project.workshopmanagment.service.UserService;
+import com.project.workshopmanagment.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.rest.webmvc.RepositoryRestController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -18,16 +21,19 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import java.util.ArrayList;
 
-@RestController
-@RequestMapping("/api/v1/user")
+@RepositoryRestController
+@RequestMapping("/users")
 public class UserController {
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userService;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @RequestMapping(value = "/register", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "", method = RequestMethod.POST, produces = "application/json")
     public ResponseEntity<User> register(@Valid @RequestBody User user, Errors errors) {
         if (errors.hasErrors()) {
             return new ResponseEntity<User>(new User(), HttpStatus.BAD_REQUEST);
@@ -48,7 +54,7 @@ public class UserController {
         u.setLastName(user.getLastName());
         u.setNationalCode(user.getNationalCode());
 
-        return new ResponseEntity<>(userService.save(u), HttpStatus.OK);
+        return new ResponseEntity<>(userRepository.save(u), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json")
@@ -57,15 +63,5 @@ public class UserController {
             return userService.login(loginUser);
 
         return null;
-    }
-
-    @RequestMapping(value = "/users", method = RequestMethod.GET, produces = "application/json")
-    public ArrayList<User> users() {
-        return (ArrayList<User>) userService.findAll();
-    }
-
-    @RequestMapping(value = "/edite" ,method = RequestMethod.POST , produces = "application/json")
-    public User edite(User user){
-        return userService.findByEmail((JWTAuthorizationFilter.loginPrincipal.getId()));
     }
 }
