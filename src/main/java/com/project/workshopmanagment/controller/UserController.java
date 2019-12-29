@@ -12,17 +12,14 @@ import org.springframework.data.rest.webmvc.RepositoryRestController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
 
 @RepositoryRestController
-@RequestMapping("/users")
 public class UserController {
     @Autowired
     private UserServiceImpl userService;
@@ -33,7 +30,7 @@ public class UserController {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @RequestMapping(value = "", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "/users", method = RequestMethod.POST)
     public ResponseEntity<User> register(@Valid @RequestBody User user, Errors errors) {
         if (errors.hasErrors()) {
             return new ResponseEntity<User>(new User(), HttpStatus.BAD_REQUEST);
@@ -57,7 +54,7 @@ public class UserController {
         return new ResponseEntity<>(userRepository.save(u), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "/users/login", method = RequestMethod.POST)
     public Token login(@RequestBody LoginUser loginUser) {
         if (userService.login(loginUser) != null)
             return userService.login(loginUser);
