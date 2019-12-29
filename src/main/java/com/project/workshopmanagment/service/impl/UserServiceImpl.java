@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Token login(LoginUser loginUser) {
         User user = findByEmail(loginUser.getEmail());
-
+        System.out.println(bCryptPasswordEncoder.matches(loginUser.getPassword(), user.getHashedPassword()));
         if (user == null || !bCryptPasswordEncoder.matches(loginUser.getPassword(), user.getHashedPassword())) {
             throw new ResourceNotFoundException("User not found");
         }

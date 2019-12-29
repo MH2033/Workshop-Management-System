@@ -31,7 +31,7 @@ public class UserController {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @RequestMapping(value = "/users", method = RequestMethod.POST)
-    public ResponseEntity<User> register(@Valid @RequestBody User user, Errors errors) {
+    public @ResponseBody ResponseEntity<User> register(@Valid @RequestBody User user, Errors errors) {
         if (errors.hasErrors()) {
             return new ResponseEntity<User>(new User(), HttpStatus.BAD_REQUEST);
         }
@@ -55,7 +55,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/users/login", method = RequestMethod.POST)
-    public Token login(@RequestBody LoginUser loginUser) {
+    public @ResponseBody Token login(@RequestBody LoginUser loginUser) {
         if (userService.login(loginUser) != null)
             return userService.login(loginUser);
 

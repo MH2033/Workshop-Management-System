@@ -12,7 +12,7 @@ public abstract class Role {
 
     @NotNull
     @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", updatable = false)
     private User user;
 
     public Role() {
@@ -21,7 +21,6 @@ public abstract class Role {
     public Role(Long id, User user) {
         this.id = id;
         this.user = user;
-        user.getRoles().add(this);
     }
 
     public User getUser() {

@@ -116,8 +116,8 @@ public class User {
         this.username = username;
     }
 
-    @JsonIgnore
-    @JsonProperty
+//    @JsonIgnoree
+//    @JsonProperty
     public String getHashedPassword() {
         return hashedPassword;
     }

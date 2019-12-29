@@ -5,6 +5,7 @@ import com.project.workshopmanagment.entity.Participant;
 import com.project.workshopmanagment.handler.GraderEventHandler;
 import com.project.workshopmanagment.handler.OrganizerEventHandler;
 import com.project.workshopmanagment.handler.ParticipantEventHandler;
+import com.project.workshopmanagment.handler.SysAdminEventHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -23,5 +24,10 @@ public class RepositoryConfiguration {
     @Bean
     ParticipantEventHandler participantEventHandler() {
         return new ParticipantEventHandler();
+    }
+
+    @Bean
+    SysAdminEventHandler sysAdminEventHandler() {
+        return new SysAdminEventHandler();
     }
 }
