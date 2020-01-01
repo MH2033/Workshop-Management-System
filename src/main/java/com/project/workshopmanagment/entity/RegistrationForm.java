@@ -6,6 +6,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 public class RegistrationForm {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(cascade = CascadeType.MERGE)

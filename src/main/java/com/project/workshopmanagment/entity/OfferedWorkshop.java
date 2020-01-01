@@ -1,7 +1,8 @@
 package com.project.workshopmanagment.entity;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.Duration;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -15,7 +16,9 @@ public class OfferedWorkshop {
     private Organizer organizer;
 
     @ElementCollection
-    private List<LocalDateTime> offeringDatesAndTimes;
+    private List<Date> offeringDatesAndTimes;
+
+    private Duration duration;
 
     private String offeringLocation;
     //private WorkshopForm[] workshopForms;
@@ -29,10 +32,11 @@ public class OfferedWorkshop {
     public OfferedWorkshop() {
     }
 
-    public OfferedWorkshop(Long id, Organizer organizer, List<LocalDateTime> offeringDatesAndTimes, String offeringLocation, List<WorkshopGroup> workshopGroups, Workshop workshop) {
+    public OfferedWorkshop(Long id, Organizer organizer, List<Date> offeringDatesAndTimes, Duration duration, String offeringLocation, List<WorkshopGroup> workshopGroups, Workshop workshop) {
         this.id = id;
         this.organizer = organizer;
         this.offeringDatesAndTimes = offeringDatesAndTimes;
+        this.duration = duration;
         this.offeringLocation = offeringLocation;
         this.workshopGroups = workshopGroups;
         this.workshop = workshop;
@@ -54,11 +58,11 @@ public class OfferedWorkshop {
         this.organizer = organizer;
     }
 
-    public List<LocalDateTime> getOfferingDatesAndTimes() {
+    public List<Date> getOfferingDatesAndTimes() {
         return offeringDatesAndTimes;
     }
 
-    public void setOfferingDatesAndTimes(List<LocalDateTime> offeringDatesAndTimes) {
+    public void setOfferingDatesAndTimes(List<Date> offeringDatesAndTimes) {
         this.offeringDatesAndTimes = offeringDatesAndTimes;
     }
 
@@ -84,5 +88,13 @@ public class OfferedWorkshop {
 
     public void setWorkshop(Workshop workshop) {
         this.workshop = workshop;
+    }
+
+    public Duration getDuration() {
+        return duration;
+    }
+
+    public void setDuration(Duration courseDuration) {
+        this.duration = courseDuration;
     }
 }

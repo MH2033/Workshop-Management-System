@@ -37,4 +37,9 @@ public class RepositoryConfiguration {
     OfferedWorkshopEventHandler offeredWorkshopEventHandler(){
         return new OfferedWorkshopEventHandler();
     }
+
+    @Bean
+    RegistrationFormEventHandler registrationFormEventHandler(){
+        return new RegistrationFormEventHandler();
+    }
 }
