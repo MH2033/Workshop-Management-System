@@ -19,7 +19,7 @@ public class OfferedWorkshop {
 
     private String offeringLocation;
     //private WorkshopForm[] workshopForms;
-    @OneToMany(mappedBy = "offeredWorkshop", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "offeredWorkshop", cascade = CascadeType.ALL)
     private List<WorkshopGroup> workshopGroups;
 
     @ManyToOne(cascade = CascadeType.MERGE)

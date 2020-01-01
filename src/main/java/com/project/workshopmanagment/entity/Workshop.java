@@ -7,6 +7,7 @@ import java.util.List;
 @Entity
 public class Workshop {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String workshopTitle;

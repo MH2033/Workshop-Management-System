@@ -5,6 +5,7 @@ import com.project.workshopmanagment.entity.Organizer;
 import com.project.workshopmanagment.entity.Role;
 import org.aspectj.weaver.ast.Or;
 import org.springframework.data.rest.core.annotation.HandleBeforeCreate;
+import org.springframework.data.rest.core.annotation.HandleBeforeLinkSave;
 import org.springframework.data.rest.core.annotation.RepositoryEventHandler;
 
 import javax.validation.Valid;

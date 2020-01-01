@@ -2,15 +2,17 @@ package com.project.workshopmanagment.configuration;
 
 import com.project.workshopmanagment.entity.Organizer;
 import com.project.workshopmanagment.entity.Participant;
-import com.project.workshopmanagment.handler.GraderEventHandler;
-import com.project.workshopmanagment.handler.OrganizerEventHandler;
-import com.project.workshopmanagment.handler.ParticipantEventHandler;
-import com.project.workshopmanagment.handler.SysAdminEventHandler;
+import com.project.workshopmanagment.handler.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class RepositoryConfiguration {
+
+    public RepositoryConfiguration(){
+        super();
+    }
+
     @Bean
     GraderEventHandler graderEventHandler() {
         return new GraderEventHandler();
@@ -29,5 +31,10 @@ public class RepositoryConfiguration {
     @Bean
     SysAdminEventHandler sysAdminEventHandler() {
         return new SysAdminEventHandler();
+    }
+
+    @Bean
+    OfferedWorkshopEventHandler offeredWorkshopEventHandler(){
+        return new OfferedWorkshopEventHandler();
     }
 }
