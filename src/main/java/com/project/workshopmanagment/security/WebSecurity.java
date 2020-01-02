@@ -1,6 +1,7 @@
 package com.project.workshopmanagment.security;
 
 //import com.google.common.collect.ImmutableList;
+import com.project.workshopmanagment.test.RequestUrlArgumentResolver;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -14,6 +15,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
+
+import java.util.List;
 
 import static com.project.workshopmanagment.security.SecurityConstants.SIGN_IN_URL;
 import static com.project.workshopmanagment.security.SecurityConstants.SIGN_UP_URL;
@@ -24,12 +28,10 @@ import static com.project.workshopmanagment.security.SecurityConstants.SIGN_UP_U
 public class WebSecurity extends WebSecurityConfigurerAdapter {
     private UserDetailsService userDetailsService;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
-
     public WebSecurity(UserDetailsService userDetailsService, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userDetailsService = userDetailsService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
-
     // define which methods are public and everything else are private
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -44,7 +46,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                         /*Probably not needed*/ "/swagger.json").permitAll()
                 .antMatchers(SIGN_IN_URL).permitAll()
                 .antMatchers(SIGN_UP_URL).permitAll()
-                .antMatchers("/**").permitAll()
+                //.antMatchers("/**").permitAll()
 //                .antMatchers(HttpMethod.GET, "/user/list").permitAll()
                 .antMatchers("/", "/static/**", "/resources/**", "/resources/static/**").permitAll()
                 .antMatchers("/assets/**").permitAll()
@@ -58,23 +60,26 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**.ico").permitAll()
                 .antMatchers("/**.svg").permitAll()
                 .antMatchers("/statics/time-stamp-formats").permitAll()
+//                .antMatchers("/user/{userId}")
+//                .access("@userSecurity.hasUserId(authentication,#userId)")
+//                .antMatchers().access()
                 .anyRequest().authenticated()
                 .and()
                 .addFilter(new JWTAuthorizationFilter(authenticationManager()))
-                // this disables session creation on Spring Security
+//                 this disables session creation on Spring Security
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-    }
-
-    @Override
-    public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
+//                .and()
+//                .authorizeRequests()
+//                .antMatchers("/user/{userId}/**")
+//                .access("@userSecurity.hasUserId(authentication,#userId)")
+//                .anyRequest().authenticated();
     }
 
     @Override
     public void configure(org.springframework.security.config.annotation.web.builders.WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**");
+        web.ignoring().antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**" , "{id}");
     }
-
+    
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         final CorsConfiguration configuration = new CorsConfiguration();
@@ -89,5 +94,9 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
+    }
+    public void addArgumentResolvers(
+            List<HandlerMethodArgumentResolver> argumentResolvers) {
+        argumentResolvers.add(new RequestUrlArgumentResolver());
     }
 }

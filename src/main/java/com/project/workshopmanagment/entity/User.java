@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.project.workshopmanagment.entity.enums.Gender;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -13,6 +14,8 @@ import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
 
+//@PreAuthorize(value = "hasAuthority('ADMIN')"
+//        + "or authentication.principal.equals(#post.member) ")
 @Entity
 public class User {
     @Id
