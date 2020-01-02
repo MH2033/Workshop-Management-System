@@ -42,4 +42,9 @@ public class RepositoryConfiguration {
     RegistrationFormEventHandler registrationFormEventHandler(){
         return new RegistrationFormEventHandler();
     }
+
+    @Bean
+    GraderRequestEventHandler graderRequestEventHandler(){
+        return new GraderRequestEventHandler();
+    }
 }

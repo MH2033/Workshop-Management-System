@@ -1,6 +1,7 @@
 package com.project.workshopmanagment.entity;
 
 import com.project.workshopmanagment.entity.enums.GraderRequestStatus;
+import com.project.workshopmanagment.entity.enums.GraderRole;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -24,7 +25,8 @@ public class GraderRequest {
     private Date lastModified;
 
     private GraderRequestStatus graderRequestStatus;
-    private String graderRoleInWorkshop;
+
+    private GraderRole graderRoleInWorkshop;
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "group_id")
@@ -32,19 +34,18 @@ public class GraderRequest {
 
     @NotNull
     @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "grader_id")
+    @JoinColumn(updatable = false, name = "grader_id")
     private Grader grader;
 
     public GraderRequest() {
     }
 
-    public GraderRequest(Long id, String graderRoleInWorkshop, WorkshopGroup workshopGroup, Grader grader) {
+    public GraderRequest(Long id, GraderRole graderRoleInWorkshop, WorkshopGroup workshopGroup, Grader grader, GraderRequestStatus graderRequestStatus) {
         this.id = id;
-        this.graderRequestStatus = GraderRequestStatus.ON_HOLD;
         this.graderRoleInWorkshop = graderRoleInWorkshop;
         this.workshopGroup = workshopGroup;
         this.grader = grader;
-        grader.getGraderRequests().add(this);
+        this.graderRequestStatus = graderRequestStatus;
     }
 
     public Long getId() {
@@ -63,11 +64,11 @@ public class GraderRequest {
         this.graderRequestStatus = graderRequestStatus;
     }
 
-    public String getGraderRoleInWorkshop() {
+    public GraderRole getGraderRoleInWorkshop() {
         return graderRoleInWorkshop;
     }
 
-    public void setGraderRoleInWorkshop(String graderRoleInWorkshop) {
+    public void setGraderRoleInWorkshop(GraderRole graderRoleInWorkshop) {
         this.graderRoleInWorkshop = graderRoleInWorkshop;
     }
 
@@ -85,5 +86,13 @@ public class GraderRequest {
 
     public void setWorkshopGroup(WorkshopGroup workshopGroup) {
         this.workshopGroup = workshopGroup;
+    }
+
+    public Grader getGrader() {
+        return grader;
+    }
+
+    public void setGrader(Grader grader) {
+        this.grader = grader;
     }
 }

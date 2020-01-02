@@ -1,7 +1,6 @@
 package com.project.workshopmanagment.handler;
 
 import com.project.workshopmanagment.entity.RegistrationForm;
-import com.project.workshopmanagment.entity.Workshop;
 import org.springframework.data.rest.core.annotation.HandleBeforeCreate;
 import org.springframework.data.rest.core.annotation.RepositoryEventHandler;
 

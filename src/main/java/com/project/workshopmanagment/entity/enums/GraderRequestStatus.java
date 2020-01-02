@@ -5,5 +5,6 @@ public enum GraderRequestStatus {
     DENIED,
     ON_HOLD,
     RESIGNED,
-    DROP_OUT
+    DROP_OUT,
+    IN_CONFLICT
 }
