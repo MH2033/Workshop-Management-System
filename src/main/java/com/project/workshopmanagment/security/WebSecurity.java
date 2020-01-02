@@ -1,10 +1,10 @@
 package com.project.workshopmanagment.security;
 
 //import com.google.common.collect.ImmutableList;
-import com.project.workshopmanagment.test.RequestUrlArgumentResolver;
+import com.project.workshopmanagment.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -28,6 +28,10 @@ import static com.project.workshopmanagment.security.SecurityConstants.SIGN_UP_U
 public class WebSecurity extends WebSecurityConfigurerAdapter {
     private UserDetailsService userDetailsService;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Autowired
+    private UserRepository userRepository;
+
     public WebSecurity(UserDetailsService userDetailsService, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userDetailsService = userDetailsService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
@@ -60,19 +64,13 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**.ico").permitAll()
                 .antMatchers("/**.svg").permitAll()
                 .antMatchers("/statics/time-stamp-formats").permitAll()
-//                .antMatchers("/user/{userId}")
-//                .access("@userSecurity.hasUserId(authentication,#userId)")
-//                .antMatchers().access()
+                .antMatchers("/api/v1/users/{id}").hasAuthority("ROLE_2")
                 .anyRequest().authenticated()
                 .and()
-                .addFilter(new JWTAuthorizationFilter(authenticationManager()))
+                .addFilter(new JWTAuthorizationFilter(authenticationManager(),this.userRepository))
 //                 this disables session creation on Spring Security
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-//                .and()
-//                .authorizeRequests()
-//                .antMatchers("/user/{userId}/**")
-//                .access("@userSecurity.hasUserId(authentication,#userId)")
-//                .anyRequest().authenticated();
+//
     }
 
     @Override
@@ -94,9 +92,5 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
-    }
-    public void addArgumentResolvers(
-            List<HandlerMethodArgumentResolver> argumentResolvers) {
-        argumentResolvers.add(new RequestUrlArgumentResolver());
     }
 }

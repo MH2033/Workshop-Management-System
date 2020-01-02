@@ -1,11 +1,13 @@
 package com.project.workshopmanagment.security;
 
+import com.project.workshopmanagment.entity.User;
+import com.project.workshopmanagment.repository.UserRepository;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
@@ -13,17 +15,21 @@ import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.*;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Map;
 
 import static com.project.workshopmanagment.security.SecurityConstants.*;
 
+
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
-    public JWTAuthorizationFilter(AuthenticationManager authManager) {
+    @Autowired
+    private UserRepository userRepository;
+
+    public JWTAuthorizationFilter(AuthenticationManager authManager, UserRepository userRepository) {
         super(authManager);
+
+        this.userRepository = userRepository;
     }
 
     public static LoginPrincipal loginPrincipal;
@@ -36,9 +42,8 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
             chain.doFilter(req, res);
             return;
         }
+
         UsernamePasswordAuthenticationToken lastauthentication = getAuthentication(req);
-        JWTAuthorizationFilter.loginPrincipal = (LoginPrincipal) lastauthentication.getPrincipal();
-        System.out.println(JWTAuthorizationFilter.loginPrincipal.getId());
         SecurityContextHolder.getContext().setAuthentication(lastauthentication); // set the user here
         chain.doFilter(req, res);
     }
@@ -54,7 +59,10 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
                         .parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
                         .getBody();
                 LoginPrincipal principal = new LoginPrincipal(claims.get("principal"));
-                return new UsernamePasswordAuthenticationToken(principal, null, new ArrayList<>());
+                JWTAuthorizationFilter.loginPrincipal = principal;
+                User u = this.userRepository.findByEmail(principal.getEmail());
+                UserPrincipal userPrincipal = new UserPrincipal(u);
+                return new UsernamePasswordAuthenticationToken(principal, null, userPrincipal.getAuthorities());
             } catch (ExpiredJwtException e) {
                 e.printStackTrace();
                 System.err.println("Jwt is expired");

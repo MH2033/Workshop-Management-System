@@ -19,7 +19,7 @@ public class OfferdWorkshopHandler {
                 if (i.getTakenWorkshop().getWokshopState().equals(WorkshopState.PASS)){
                     continue;
                 }else{
-                    throw new RuntimeException("Don't Pass all Relation Workshp");
+                    throw new RuntimeException("Don't Pass all Relation Workshop");
                 }
         }
     }

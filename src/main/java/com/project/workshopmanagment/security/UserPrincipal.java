@@ -1,6 +1,7 @@
-package com.project.workshopmanagment;
+package com.project.workshopmanagment.security;
 
 import com.project.workshopmanagment.entity.*;
+import com.project.workshopmanagment.security.JWTAuthorizationFilter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -8,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 public class UserPrincipal implements UserDetails {
 
@@ -20,17 +22,17 @@ public class UserPrincipal implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
-        GrantedAuthority authorit = new SimpleGrantedAuthority("ROLE_USER");
+        GrantedAuthority authorit = new SimpleGrantedAuthority("ROLE_"+ JWTAuthorizationFilter.loginPrincipal.getId());
         authorities.add(authorit);
-        this.user.getPermisionsLists().forEach(p ->{
-                GrantedAuthority authority = new SimpleGrantedAuthority(p);
-                authorities.add(authority);
-        });
+//        this.user.getPermisionsLists().forEach(p ->{
+//                GrantedAuthority authority = new SimpleGrantedAuthority(p);
+//                authorities.add(authority);
+//        });
 
         for (Role i : this.user.getRoles()){
 
             if (i instanceof Grader){
-                GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_GRAYDER");
+                GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_GRADER");
                 authorities.add(authority);
             }else if (i instanceof SysAdmin){
                 GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_SYSADMIN");

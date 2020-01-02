@@ -10,4 +10,5 @@ public interface UserService {
     public User findByEmail(String email);
 
     public Token login(LoginUser loginUser);
+
 }

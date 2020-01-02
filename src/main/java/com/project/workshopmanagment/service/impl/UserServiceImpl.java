@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
             throw new ResourceNotFoundException("User not found");
         }
 
-        LoginPrincipal loginPrincipal = new LoginPrincipal(user.getId().toString(), user.getHashedPassword());
+        LoginPrincipal loginPrincipal = new LoginPrincipal(user.getId().toString(), user.getHashedPassword(),user.getEmail());
         Map<String, Object> claims = new HashMap<>();
         claims.put("principal", loginPrincipal);
         String token = Jwts.builder()
