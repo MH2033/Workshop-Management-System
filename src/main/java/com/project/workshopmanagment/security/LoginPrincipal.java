@@ -25,6 +25,10 @@ public class LoginPrincipal {
         this.id = id;
     }
 
+    public LoginPrincipal() {
+
+    }
+
     public String getId() {
         return id;
     }

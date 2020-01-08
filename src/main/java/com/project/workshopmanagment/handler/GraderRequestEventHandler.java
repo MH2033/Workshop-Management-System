@@ -3,6 +3,7 @@ package com.project.workshopmanagment.handler;
 import com.project.workshopmanagment.entity.GraderRequest;
 import com.project.workshopmanagment.entity.enums.GraderRequestStatus;
 import org.springframework.data.rest.core.annotation.HandleBeforeCreate;
+import org.springframework.data.rest.core.annotation.HandleBeforeLinkSave;
 import org.springframework.data.rest.core.annotation.HandleBeforeSave;
 import org.springframework.data.rest.core.annotation.RepositoryEventHandler;
 
@@ -11,6 +12,11 @@ import java.util.Date;
 
 @RepositoryEventHandler
 public class GraderRequestEventHandler {
+
+
+
+    @HandleBeforeSave
+    @HandleBeforeLinkSave
     @HandleBeforeCreate
     public void handleGraderRequestCreate(@Valid GraderRequest graderRequest) {
         for(GraderRequest g: graderRequest.getGrader().getGraderRequests()){

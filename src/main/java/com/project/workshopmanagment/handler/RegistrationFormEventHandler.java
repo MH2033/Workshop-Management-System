@@ -1,17 +1,30 @@
 package com.project.workshopmanagment.handler;
 
 import com.project.workshopmanagment.entity.RegistrationForm;
+import com.project.workshopmanagment.entity.WorkshopRelation;
+import com.project.workshopmanagment.entity.enums.WorkshopRelationType;
+import com.project.workshopmanagment.entity.enums.WorkshopState;
 import org.springframework.data.rest.core.annotation.HandleBeforeCreate;
 import org.springframework.data.rest.core.annotation.RepositoryEventHandler;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @RepositoryEventHandler
 public class RegistrationFormEventHandler {
     @HandleBeforeCreate
     public void handleRegistrationFormBeforeSave(@Valid RegistrationForm registrationForm){
+        
         for(RegistrationForm r: registrationForm.getParticipant().getRegistrationForms()){
+            for (WorkshopRelation j : registrationForm.getDesiredWorkshop().getWorkshop().getWorkshopRelation())
+                if (j.getWorkshop().equals(r.getTakenWorkshop().getWorkshopGroup().getOfferedWorkshop().getWorkshop())) {
+                    if(j.getWorkshopRelationType().equals(WorkshopRelationType.PRE_REQUISITE)){
+                        if(!r.getTakenWorkshop().getWokshopState().equals(WorkshopState.PASS))
+                            throw new RuntimeException("Pre requisites have not met");
+                    }
+                }
             if(registrationForm.getDesiredWorkshop().getWorkshop().equals(r.getDesiredWorkshop().getWorkshop())){
                 throw new RuntimeException("Participant has already enrolled in the workshop");
             }
