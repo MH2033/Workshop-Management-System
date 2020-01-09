@@ -1,21 +1,22 @@
 package com.project.workshopmanagment.entity;
 
+import com.project.workshopmanagment.entity.form.Respondable;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-public class WorkshopGroup {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long databaseId;
+public class WorkshopGroup extends Respondable {
+    //@Id
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    //private Long databaseId;
 
     private String groupId;
 
     public WorkshopGroup() {
     }
 
-    public WorkshopGroup(Long databaseId, String groupId, OfferedWorkshop offeredWorkshop, List<GraderRequest> graderRequests, List<TakenWorkshop> takenWorkshops) {
-        this.databaseId = databaseId;
+    public WorkshopGroup(String groupId, OfferedWorkshop offeredWorkshop, List<GraderRequest> graderRequests, List<TakenWorkshop> takenWorkshops) {
         this.groupId = groupId;
         this.offeredWorkshop = offeredWorkshop;
         this.graderRequests = graderRequests;
@@ -31,14 +32,6 @@ public class WorkshopGroup {
 
     @OneToMany(mappedBy = "workshopGroup", cascade = CascadeType.ALL)
     private List<TakenWorkshop> takenWorkshops;
-
-    public Long getDatabaseId() {
-        return databaseId;
-    }
-
-    public void setDatabaseId(Long databaseId) {
-        this.databaseId = databaseId;
-    }
 
     public String getGroupId() {
         return groupId;

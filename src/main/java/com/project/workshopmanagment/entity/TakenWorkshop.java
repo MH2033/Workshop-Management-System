@@ -1,13 +1,15 @@
 package com.project.workshopmanagment.entity;
 
 import com.project.workshopmanagment.entity.enums.WorkshopState;
+import com.project.workshopmanagment.entity.form.Answer;
+import com.project.workshopmanagment.entity.form.Respondable;
 
 import javax.persistence.*;
 
 @Entity
-public class TakenWorkshop {
-    @Id
-    private Long id;
+public class TakenWorkshop extends Respondable {
+    //@Id
+    //private Long id;
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "offeredWorkshop_id")
@@ -16,14 +18,14 @@ public class TakenWorkshop {
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "takenWorkshop")
     private RegistrationForm registrationForm;
 
-    private WorkshopState wokshopState;
+    private WorkshopState workshopState;
 
-    public void setId(Long id) {
-        this.id = id;
+    public TakenWorkshop() {
+        super();
     }
 
-    public Long getId() {
-        return id;
+    public TakenWorkshop(Long id, Answer answer) {
+        super(id, answer);
     }
 
     public WorkshopGroup getWorkshopGroup() {
@@ -34,8 +36,8 @@ public class TakenWorkshop {
         return registrationForm;
     }
 
-    public WorkshopState getWokshopState() {
-        return wokshopState;
+    public WorkshopState getWorkshopState() {
+        return workshopState;
     }
 
     public void setWorkshopGroup(WorkshopGroup workshopGroup) {
@@ -46,7 +48,7 @@ public class TakenWorkshop {
         this.registrationForm = registrationForm;
     }
 
-    public void setWokshopState(WorkshopState wokshopState) {
-        this.wokshopState = wokshopState;
+    public void setWorkshopState(WorkshopState wokshopState) {
+        this.workshopState = wokshopState;
     }
 }

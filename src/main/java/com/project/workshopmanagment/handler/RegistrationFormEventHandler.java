@@ -8,20 +8,21 @@ import org.springframework.data.rest.core.annotation.HandleBeforeCreate;
 import org.springframework.data.rest.core.annotation.RepositoryEventHandler;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @RepositoryEventHandler
 public class RegistrationFormEventHandler {
+
+    //TODO: Adding validation for in-conflict and dependent workshops
+
     @HandleBeforeCreate
     public void handleRegistrationFormBeforeSave(@Valid RegistrationForm registrationForm){
-        
+
         for(RegistrationForm r: registrationForm.getParticipant().getRegistrationForms()){
             for (WorkshopRelation j : registrationForm.getDesiredWorkshop().getWorkshop().getWorkshopRelation())
                 if (j.getWorkshop().equals(r.getTakenWorkshop().getWorkshopGroup().getOfferedWorkshop().getWorkshop())) {
                     if(j.getWorkshopRelationType().equals(WorkshopRelationType.PRE_REQUISITE)){
-                        if(!r.getTakenWorkshop().getWokshopState().equals(WorkshopState.PASS))
+                        if(!r.getTakenWorkshop().getWorkshopState().equals(WorkshopState.PASS))
                             throw new RuntimeException("Pre requisites have not met");
                     }
                 }

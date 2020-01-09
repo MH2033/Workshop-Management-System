@@ -1,5 +1,7 @@
 package com.project.workshopmanagment.entity;
 
+import com.project.workshopmanagment.entity.form.Form;
+
 import javax.persistence.*;
 import java.time.Duration;
 import java.util.Date;
@@ -21,7 +23,10 @@ public class OfferedWorkshop {
     private Duration duration;
 
     private String offeringLocation;
-    //private WorkshopForm[] workshopForms;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "offeredWorkshop")
+    private List<Form> formList;
+
     @OneToMany(mappedBy = "offeredWorkshop", cascade = CascadeType.ALL)
     private List<WorkshopGroup> workshopGroups;
 
