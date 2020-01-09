@@ -1,5 +1,9 @@
 package com.project.workshopmanagment.entity;
 
+import com.project.workshopmanagment.entity.role.Participant;
+import com.project.workshopmanagment.entity.workshop.OfferedWorkshop;
+import com.project.workshopmanagment.entity.workshop.TakenWorkshop;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 

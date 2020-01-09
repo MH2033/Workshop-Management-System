@@ -1,7 +1,7 @@
 package com.project.workshopmanagment.handler;
 
 import com.project.workshopmanagment.entity.RegistrationForm;
-import com.project.workshopmanagment.entity.WorkshopRelation;
+import com.project.workshopmanagment.entity.workshop.WorkshopRelation;
 import com.project.workshopmanagment.entity.enums.WorkshopRelationType;
 import com.project.workshopmanagment.entity.enums.WorkshopState;
 import org.springframework.data.rest.core.annotation.HandleBeforeCreate;

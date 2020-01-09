@@ -1,8 +1,11 @@
 package com.project.workshopmanagment.configuration;
 
-import com.project.workshopmanagment.entity.Organizer;
-import com.project.workshopmanagment.entity.Participant;
 import com.project.workshopmanagment.handler.*;
+import com.project.workshopmanagment.handler.role.GraderEventHandler;
+import com.project.workshopmanagment.handler.role.OrganizerEventHandler;
+import com.project.workshopmanagment.handler.role.ParticipantEventHandler;
+import com.project.workshopmanagment.handler.role.SysAdminEventHandler;
+import com.project.workshopmanagment.handler.workshop.OfferedWorkshopEventHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

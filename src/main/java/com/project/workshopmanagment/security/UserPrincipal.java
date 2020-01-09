@@ -1,7 +1,7 @@
 package com.project.workshopmanagment.security;
 
 import com.project.workshopmanagment.entity.*;
-import com.project.workshopmanagment.security.JWTAuthorizationFilter;
+import com.project.workshopmanagment.entity.role.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,7 +9,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 
 public class UserPrincipal implements UserDetails {
 

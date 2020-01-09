@@ -2,6 +2,8 @@ package com.project.workshopmanagment.entity;
 
 import com.project.workshopmanagment.entity.enums.GraderRequestStatus;
 import com.project.workshopmanagment.entity.enums.GraderRole;
+import com.project.workshopmanagment.entity.role.Grader;
+import com.project.workshopmanagment.entity.workshop.WorkshopGroup;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 

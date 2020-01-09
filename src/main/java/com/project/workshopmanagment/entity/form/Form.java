@@ -1,6 +1,6 @@
 package com.project.workshopmanagment.entity.form;
 
-import com.project.workshopmanagment.entity.OfferedWorkshop;
+import com.project.workshopmanagment.entity.workshop.OfferedWorkshop;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
