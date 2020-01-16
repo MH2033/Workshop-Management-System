@@ -24,4 +24,51 @@ public class Answer {
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "question_id")
     private Question question;
+
+    public Answer() {
+    }
+
+    public Answer(Long id, String answer, Date created, Respondable respondable, Question question) {
+        this.id = id;
+        this.answer = answer;
+        this.created = created;
+        this.respondable = respondable;
+        this.question = question;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
+    }
+
+    public Respondable getRespondable() {
+        return respondable;
+    }
+
+    public void setRespondable(Respondable respondable) {
+        this.respondable = respondable;
+    }
+
+    public Question getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(Question question) {
+        this.question = question;
+    }
 }

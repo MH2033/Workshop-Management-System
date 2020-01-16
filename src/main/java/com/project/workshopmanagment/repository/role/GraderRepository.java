@@ -11,6 +11,6 @@ public interface GraderRepository extends CrudRepository<Grader, Long> {
     @PostAuthorize("hasAuthority('ROLE_SYSADMIN')")
     Iterable<Grader> findAll();
 
-    @PostAuthorize("hasAuthority('ROLE_SYSADMIN')")
-    Optional<Grader> findById(@PathVariable Long id);
+    //@PostAuthorize("hasAuthority('ROLE_SYSADMIN')")
+    //Optional<Grader> findById(@PathVariable Long id);
 }

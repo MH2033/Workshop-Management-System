@@ -1,6 +1,7 @@
 package com.project.workshopmanagment.configuration;
 
 import com.project.workshopmanagment.handler.*;
+import com.project.workshopmanagment.handler.form.AnswerEventHandler;
 import com.project.workshopmanagment.handler.role.GraderEventHandler;
 import com.project.workshopmanagment.handler.role.OrganizerEventHandler;
 import com.project.workshopmanagment.handler.role.ParticipantEventHandler;
@@ -56,4 +57,8 @@ public class RepositoryConfiguration {
         return new ContactPointEventHandler();
     }
 
+    @Bean
+    AnswerEventHandler answerEventHandler(){
+        return new AnswerEventHandler();
+    }
 }

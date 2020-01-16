@@ -16,4 +16,37 @@ public abstract class Question {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "question")
     List<Answer> answerList;
+
+    public Question() {
+    }
+
+    public Question(Long id, Form form, List<Answer> answerList) {
+        this.id = id;
+        this.form = form;
+        this.answerList = answerList;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Form getForm() {
+        return form;
+    }
+
+    public void setForm(Form form) {
+        this.form = form;
+    }
+
+    public List<Answer> getAnswerList() {
+        return answerList;
+    }
+
+    public void setAnswerList(List<Answer> answerList) {
+        this.answerList = answerList;
+    }
 }

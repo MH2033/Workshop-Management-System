@@ -36,8 +36,6 @@ public class User {
     private String username;
 
     @NotBlank
-    @JsonIgnore
-    @JsonProperty
     private String hashedPassword;
 
     @NotBlank
@@ -122,6 +120,8 @@ public class User {
         this.username = username;
     }
 
+    @JsonIgnore
+    @JsonProperty
     public String getHashedPassword() {
         return hashedPassword;
     }

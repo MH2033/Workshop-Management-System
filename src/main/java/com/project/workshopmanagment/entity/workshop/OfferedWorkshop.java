@@ -4,6 +4,7 @@ import com.project.workshopmanagment.entity.form.Form;
 import com.project.workshopmanagment.entity.role.Organizer;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.Duration;
 import java.util.Date;
 import java.util.List;
@@ -25,12 +26,15 @@ public class OfferedWorkshop {
 
     private String offeringLocation;
 
+    private int price = 0;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "offeredWorkshop")
     private List<Form> formList;
 
     @OneToMany(mappedBy = "offeredWorkshop", cascade = CascadeType.ALL)
     private List<WorkshopGroup> workshopGroups;
 
+    @NotNull
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(nullable = false, name = "workshop_id")
     private Workshop workshop;
@@ -38,12 +42,13 @@ public class OfferedWorkshop {
     public OfferedWorkshop() {
     }
 
-    public OfferedWorkshop(Long id, Organizer organizer, List<Date> offeringDatesAndTimes, Duration duration, String offeringLocation, List<WorkshopGroup> workshopGroups, Workshop workshop) {
+    public OfferedWorkshop(Long id, Organizer organizer, List<Date> offeringDatesAndTimes, Duration duration, String offeringLocation, int price, List<WorkshopGroup> workshopGroups, Workshop workshop) {
         this.id = id;
         this.organizer = organizer;
         this.offeringDatesAndTimes = offeringDatesAndTimes;
         this.duration = duration;
         this.offeringLocation = offeringLocation;
+        this.price = price;
         this.workshopGroups = workshopGroups;
         this.workshop = workshop;
     }
@@ -102,5 +107,13 @@ public class OfferedWorkshop {
 
     public void setDuration(Duration courseDuration) {
         this.duration = courseDuration;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
 }

@@ -1,6 +1,7 @@
 package com.project.workshopmanagment.entity.workshop;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.io.File;
 import java.util.List;
 
@@ -10,9 +11,9 @@ public class Workshop {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Workshop title cannot be blank")
     private String workshopTitle;
 
-    private int price;
 
     private File image;
 
@@ -25,10 +26,9 @@ public class Workshop {
     public Workshop() {
     }
 
-    public Workshop(Long id, String workshopTitle, int price, File image, List<WorkshopRelation> workshopRelation, List<OfferedWorkshop> offeredWorkshops) {
+    public Workshop(Long id, String workshopTitle, File image, List<WorkshopRelation> workshopRelation, List<OfferedWorkshop> offeredWorkshops) {
         this.id = id;
         this.workshopTitle = workshopTitle;
-        this.price = price;
         this.image = image;
         this.workshopRelation = workshopRelation;
         this.offeredWorkshops = offeredWorkshops;
@@ -48,14 +48,6 @@ public class Workshop {
 
     public void setWorkshopTitle(String workshopTitle) {
         this.workshopTitle = workshopTitle;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
     }
 
     public File getImage() {

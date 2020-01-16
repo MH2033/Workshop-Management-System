@@ -2,6 +2,7 @@ package com.project.workshopmanagment.entity;
 
 import com.project.workshopmanagment.entity.enums.GraderRequestStatus;
 import com.project.workshopmanagment.entity.enums.GraderRole;
+import com.project.workshopmanagment.entity.enums.GraderType;
 import com.project.workshopmanagment.entity.role.Grader;
 import com.project.workshopmanagment.entity.workshop.WorkshopGroup;
 import org.hibernate.annotations.CreationTimestamp;
@@ -30,6 +31,8 @@ public class GraderRequest {
 
     private GraderRole graderRoleInWorkshop;
 
+    private GraderType graderType = GraderType.SUBORDINATE;
+
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "group_id")
     private WorkshopGroup workshopGroup;
@@ -42,12 +45,13 @@ public class GraderRequest {
     public GraderRequest() {
     }
 
-    public GraderRequest(Long id, GraderRole graderRoleInWorkshop, WorkshopGroup workshopGroup, Grader grader, GraderRequestStatus graderRequestStatus) {
+    public GraderRequest(Long id, GraderRole graderRoleInWorkshop, WorkshopGroup workshopGroup, Grader grader, GraderRequestStatus graderRequestStatus, GraderType graderType) {
         this.id = id;
         this.graderRoleInWorkshop = graderRoleInWorkshop;
         this.workshopGroup = workshopGroup;
         this.grader = grader;
         this.graderRequestStatus = graderRequestStatus;
+        this.graderType = graderType;
     }
 
     public Long getId() {
@@ -96,5 +100,13 @@ public class GraderRequest {
 
     public void setGrader(Grader grader) {
         this.grader = grader;
+    }
+
+    public GraderType getGraderType() {
+        return graderType;
+    }
+
+    public void setGraderType(GraderType graderType) {
+        this.graderType = graderType;
     }
 }
