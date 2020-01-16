@@ -2,10 +2,10 @@ package com.project.workshopmanagment.entity.payment;
 
 import javax.persistence.*;
 
-@Inheritance
 @Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Payment {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
 }

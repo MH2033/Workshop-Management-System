@@ -1,5 +1,7 @@
 package com.project.workshopmanagment.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.project.workshopmanagment.entity.enums.Gender;
 import com.project.workshopmanagment.entity.role.Role;
 import org.hibernate.annotations.CreationTimestamp;
@@ -8,7 +10,6 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -24,10 +25,10 @@ public class User {
 
     @NotBlank
     private String firstName;
+
     @NotBlank
     private String lastName;
 
-    @NotBlank
     @Column(length = 10, unique = true)
     private String nationalCode;
 
@@ -35,6 +36,8 @@ public class User {
     private String username;
 
     @NotBlank
+    @JsonIgnore
+    @JsonProperty
     private String hashedPassword;
 
     @NotBlank
@@ -44,13 +47,9 @@ public class User {
 
     private String address;
 
-    @NotBlank
     private String phoneNumber;
-
-    @NotNull
     private Gender gender;
 
-    @NotNull
     private Date birthDate;
 
     @CreationTimestamp
@@ -123,8 +122,6 @@ public class User {
         this.username = username;
     }
 
-//    @JsonIgnoree
-//    @JsonProperty
     public String getHashedPassword() {
         return hashedPassword;
     }
