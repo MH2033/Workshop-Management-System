@@ -14,7 +14,7 @@ public class TakenWorkshop extends Respondable {
     //private Long id;
 
     @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "offeredWorkshop_id")
+    @JoinColumn(name = "WorkshopGroup_id")
     private WorkshopGroup workshopGroup;
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "takenWorkshop")
@@ -23,7 +23,6 @@ public class TakenWorkshop extends Respondable {
     private WorkshopState workshopState;
 
     public TakenWorkshop() {
-        super();
     }
 
     public TakenWorkshop(Long id, Answer answer) {

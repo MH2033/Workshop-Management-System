@@ -25,7 +25,7 @@ public class WorkshopGroup extends Respondable {
     }
 
     @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "offeredCourse_id")
+    @JoinColumn(name = "offeredworkshop_id")
     private OfferedWorkshop offeredWorkshop;
 
     @OneToMany(mappedBy = "workshopGroup", cascade = CascadeType.ALL)

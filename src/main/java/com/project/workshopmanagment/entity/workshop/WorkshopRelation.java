@@ -2,17 +2,16 @@ package com.project.workshopmanagment.entity.workshop;
 
 import com.project.workshopmanagment.entity.enums.WorkshopRelationType;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
 public class WorkshopRelation {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.MERGE)
     private Workshop workshop;
 
     @NotNull
@@ -22,7 +21,7 @@ public class WorkshopRelation {
     public WorkshopRelation() {
     }
 
-    public WorkshopRelation(Long id, Workshop workshop, @NotNull WorkshopRelationType workshopRelationType) {
+    public WorkshopRelation(Long id, Workshop workshop, WorkshopRelationType workshopRelationType) {
         this.id = id;
         this.workshop = workshop;
         this.workshopRelationType = workshopRelationType;
