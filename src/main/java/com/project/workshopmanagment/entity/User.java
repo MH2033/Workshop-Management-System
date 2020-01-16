@@ -68,10 +68,6 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<ContactPoint> contactPoints;
 
-    private int isActive;
-
-    private String permisoins = "";
-
     public User() {
     }
 
@@ -89,33 +85,10 @@ public class User {
         this.birthDate = birthDate;
         this.roles = roles;
         this.contactPoints = contactPoints;
-        this.isActive = 1;
-    }
-
-    public int getIsActive() {
-        return isActive;
-    }
-
-    public void setIsActive(int isActive) {
-        this.isActive = isActive;
-    }
-
-    public String getPermisoins() {
-        return permisoins;
     }
 
     public List<Role> getRolesList(){
         return this.roles;
-    }
-
-    public List<String> getPermisionsLists(){
-        if (this.permisoins != ""){
-            return Arrays.asList(this.permisoins.split(","));
-        }
-        return new ArrayList<>();
-    }
-    public void setPermisoins(String permisoins) {
-        this.permisoins = permisoins;
     }
 
     public String getFirstName() {

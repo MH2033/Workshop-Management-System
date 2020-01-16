@@ -23,10 +23,6 @@ public class UserPrincipal implements UserDetails {
         List<GrantedAuthority> authorities = new ArrayList<>();
         GrantedAuthority authorit = new SimpleGrantedAuthority("ROLE_"+ JWTAuthorizationFilter.loginPrincipal.getId());
         authorities.add(authorit);
-//        this.user.getPermisionsLists().forEach(p ->{
-//                GrantedAuthority authority = new SimpleGrantedAuthority(p);
-//                authorities.add(authority);
-//        });
 
         for (Role i : this.user.getRoles()){
 
@@ -79,6 +75,6 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return user.getIsActive() == 1;
+        return true;
     }
 }
