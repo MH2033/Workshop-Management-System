@@ -42,6 +42,9 @@ public class UserPrincipal implements UserDetails {
             }else if(i instanceof Participant){
                 GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_PARTICIPANT");
                 authorities.add(authority);
+            }else if(i instanceof FinancialManager){
+                GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_FINANCIALMANAGER");
+                authorities.add(authority);
             }
         }
 

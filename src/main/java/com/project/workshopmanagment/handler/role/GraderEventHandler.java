@@ -12,10 +12,7 @@ public class GraderEventHandler {
 
     private Long id;
 
-    @HandleBeforeSave
-    @HandleBeforeLinkSave
     @HandleBeforeCreate
-    @HandleBeforeDelete
     public void handleGraderSave(@Valid Grader grader) {
         id = Long.parseLong(JWTAuthorizationFilter.loginPrincipal.getId());
         if(grader.getUser().getId() != id)

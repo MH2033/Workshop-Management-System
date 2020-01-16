@@ -50,4 +50,10 @@ public class RepositoryConfiguration {
     GraderRequestEventHandler graderRequestEventHandler(){
         return new GraderRequestEventHandler();
     }
+
+    @Bean
+    ContactPointEventHandler contactPointEventHandler(){
+        return new ContactPointEventHandler();
+    }
+
 }

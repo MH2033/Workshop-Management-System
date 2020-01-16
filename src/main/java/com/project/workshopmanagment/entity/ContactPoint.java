@@ -18,7 +18,7 @@ public class ContactPoint {
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", updatable = false)
     private User user;
 
     public ContactPoint() {

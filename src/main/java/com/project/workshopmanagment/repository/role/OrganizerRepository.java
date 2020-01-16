@@ -5,6 +5,12 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.security.access.prepost.PostAuthorize;
 
 public interface OrganizerRepository extends CrudRepository<Organizer, Long> {
+
     @PostAuthorize("hasAuthority('ROLE_SYSADMIN')")
     Iterable<Organizer> findAll();
+
+    @PostAuthorize("hasAuthority('ROLE_SYSADMIN')")
+    <S extends Organizer> S save(S s);
+
+
 }
