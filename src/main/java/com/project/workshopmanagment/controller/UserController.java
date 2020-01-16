@@ -41,7 +41,7 @@ public class UserController {
         }
 
         User u = new User();
-        u.setUsername(u.getUsername());
+        u.setUsername(user.getUsername());
         u.setHashedPassword(bCryptPasswordEncoder.encode(user.getHashedPassword()));
         u.setEmail(user.getEmail());
         u.setBirthDate(user.getBirthDate());

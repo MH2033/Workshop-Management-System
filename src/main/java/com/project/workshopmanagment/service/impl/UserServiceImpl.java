@@ -34,23 +34,42 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User findByUsername(String userName){
+        return userRepository.findByUsername(userName);
+    }
+    @Override
     public Token login(LoginUser loginUser) {
         User user = findByEmail(loginUser.getEmail());
+        if (user == null) {
+            user = findByUsername(loginUser.getEmail());
+        }
         System.out.println(bCryptPasswordEncoder.matches(loginUser.getPassword(), user.getHashedPassword()));
         if (user == null || !bCryptPasswordEncoder.matches(loginUser.getPassword(), user.getHashedPassword())) {
             throw new ResourceNotFoundException("User not found");
         }
-
-        LoginPrincipal loginPrincipal = new LoginPrincipal(user.getId().toString(), user.getHashedPassword(),user.getEmail());
+        LoginPrincipal loginPrincipal = new LoginPrincipal(user.getId().toString(), user.getHashedPassword(), user.getEmail());
         Map<String, Object> claims = new HashMap<>();
-        claims.put("principal", loginPrincipal);
-        String token = Jwts.builder()
-                .setSubject(user.getEmail())
-                .setClaims(claims)
-                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
-                .signWith(SignatureAlgorithm.HS512, SECRET_KEY.getBytes())
-                .compact();
+        if (loginUser.isRememberMe()) {
+            claims.put("principal", loginPrincipal);
+            String token = Jwts.builder()
+                    .setSubject(user.getEmail())
+                    .setClaims(claims)
+                    .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME_REMEMBERME.longValue()))
+                    .signWith(SignatureAlgorithm.HS512, SECRET_KEY.getBytes())
+                    .compact();
 
-        return new Token(TOKEN_PREFIX + token);
+            return new Token(TOKEN_PREFIX + token);
+        }else {
+
+            claims.put("principal", loginPrincipal);
+            String token = Jwts.builder()
+                    .setSubject(user.getEmail())
+                    .setClaims(claims)
+                    .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+                    .signWith(SignatureAlgorithm.HS512, SECRET_KEY.getBytes())
+                    .compact();
+
+            return new Token(TOKEN_PREFIX + token);
+        }
     }
 }

@@ -31,7 +31,7 @@ public class User {
     @Column(length = 10, unique = true)
     private String nationalCode;
 
-    @Column(unique = true, updatable = false)
+    @Column(unique = true)
     private String username;
 
     @NotBlank

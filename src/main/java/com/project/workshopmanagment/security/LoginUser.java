@@ -5,6 +5,16 @@ public class LoginUser {
 
     private String password;
 
+    private boolean rememberMe;
+
+    public boolean isRememberMe() {
+        return rememberMe;
+    }
+
+    public void setRememberMe(boolean rememberMe) {
+        this.rememberMe = rememberMe;
+    }
+
     public String getPassword() {
         return password;
     }

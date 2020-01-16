@@ -14,6 +14,7 @@ import java.util.Optional;
 public interface UserRepository extends CrudRepository<User, Long> {
 
     User findByEmail(String email);
+    User findByUsername(String userName);
 
     @PostAuthorize("hasAuthority('ROLE_SYSADMIN')")
     Iterable<User> findAll();

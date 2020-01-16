@@ -11,4 +11,6 @@ public interface UserService {
 
     public Token login(LoginUser loginUser);
 
+    public User findByUsername(String userName);
+
 }
