@@ -13,7 +13,7 @@ public abstract class Role {
     private Long id;
 
     @NotNull
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.DETACH})
     @JoinColumn(name = "user_id", updatable = false)
     private User user;
 

@@ -10,13 +10,13 @@ public class ContactPoint {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
+    @NotBlank(message = "Data cannot be empty")
     private String data;
 
-    @NotBlank
+    @NotBlank(message = "Type cannot be empty")
     private String type;
 
-    @NotNull
+    @NotNull(message = "User cannot be empty")
     @ManyToOne
     @JoinColumn(name = "user_id", updatable = false)
     private User user;

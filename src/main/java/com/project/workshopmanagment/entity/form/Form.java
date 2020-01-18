@@ -1,9 +1,11 @@
 package com.project.workshopmanagment.entity.form;
 
+import com.project.workshopmanagment.entity.enums.FormType;
 import com.project.workshopmanagment.entity.workshop.OfferedWorkshop;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
@@ -17,9 +19,14 @@ public class Form {
 
     private String description;
 
+    @NotNull(message = "FormType cannot be empty")
+    @Column(updatable = false)
+    private FormType formType;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "form")
     List<Question> questionList;
 
+    @NotNull(message = "OfferedWorkshop cannot be empty")
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "offeredWorkshop_id")
     private OfferedWorkshop offeredWorkshop;
@@ -27,10 +34,11 @@ public class Form {
     public Form() {
     }
 
-    public Form(Long id, @NotBlank String title, String description, List<Question> questionList, OfferedWorkshop offeredWorkshop) {
+    public Form(Long id, @NotBlank String title, String description, FormType formType, List<Question> questionList, OfferedWorkshop offeredWorkshop) {
         this.id = id;
         this.title = title;
         this.description = description;
+        this.formType = formType;
         this.questionList = questionList;
         this.offeredWorkshop = offeredWorkshop;
     }
@@ -73,5 +81,13 @@ public class Form {
 
     public void setOfferedWorkshop(OfferedWorkshop offeredWorkshop) {
         this.offeredWorkshop = offeredWorkshop;
+    }
+
+    public FormType getFormType() {
+        return formType;
+    }
+
+    public void setFormType(FormType formType) {
+        this.formType = formType;
     }
 }

@@ -2,13 +2,17 @@ package com.project.workshopmanagment.entity.form;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
 public class MultipleChoiceQuestions extends Question {
 
+    @NotBlank(message = "Question cannot be empty")
     private String question;
 
+    @NotNull(message = "Choices cannot be empty")
     @ElementCollection
     private List<String> choices;
 

@@ -1,6 +1,7 @@
 package com.project.workshopmanagment.entity.form;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
@@ -10,9 +11,10 @@ public abstract class Question {
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
 
+    @NotNull(message = "Form cannot be empty")
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "form_id")
-    private Form form;
+    protected Form form;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "question")
     List<Answer> answerList;

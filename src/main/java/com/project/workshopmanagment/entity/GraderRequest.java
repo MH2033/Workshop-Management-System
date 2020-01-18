@@ -33,11 +33,12 @@ public class GraderRequest {
 
     private GraderType graderType = GraderType.SUBORDINATE;
 
+    @NotNull(message = "WorkshopGroup cannot be empty")
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "group_id")
     private WorkshopGroup workshopGroup;
 
-    @NotNull
+    @NotNull(message = "Grader cannot be empty")
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(updatable = false, name = "grader_id")
     private Grader grader;

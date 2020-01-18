@@ -14,7 +14,7 @@ public class WorkshopRelation {
     @OneToOne(cascade = CascadeType.MERGE)
     private Workshop workshop;
 
-    @NotNull
+    @NotNull(message = "WorkshopRelationType cannot be empty")
     private WorkshopRelationType workshopRelationType;
 
 

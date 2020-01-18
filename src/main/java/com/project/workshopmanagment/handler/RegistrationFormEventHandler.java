@@ -1,9 +1,13 @@
 package com.project.workshopmanagment.handler;
 
 import com.project.workshopmanagment.entity.RegistrationForm;
+import com.project.workshopmanagment.entity.workshop.TakenWorkshop;
 import com.project.workshopmanagment.entity.workshop.WorkshopRelation;
 import com.project.workshopmanagment.entity.enums.WorkshopRelationType;
 import com.project.workshopmanagment.entity.enums.WorkshopState;
+import com.project.workshopmanagment.repository.wokrshop.TakenWorkshopRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.rest.core.annotation.HandleAfterCreate;
 import org.springframework.data.rest.core.annotation.HandleBeforeCreate;
 import org.springframework.data.rest.core.annotation.RepositoryEventHandler;
 
@@ -12,11 +16,17 @@ import java.util.Date;
 
 @RepositoryEventHandler
 public class RegistrationFormEventHandler {
+    @Autowired
+    TakenWorkshopRepository takenWorkshopRepository;
 
     //TODO: Adding validation for in-conflict and dependent workshops
 
     @HandleBeforeCreate
     public void handleRegistrationFormBeforeSave(@Valid RegistrationForm registrationForm){
+
+        if(registrationForm.getDesiredWorkshop().getCapacity() < 1){
+            throw new RuntimeException("Workshop is full!");
+        }
 
         for(RegistrationForm r: registrationForm.getParticipant().getRegistrationForms()){
             for (WorkshopRelation j : registrationForm.getDesiredWorkshop().getWorkshop().getWorkshopRelation())
@@ -46,4 +56,17 @@ public class RegistrationFormEventHandler {
             }
         }
     }
+    @HandleAfterCreate
+    public void handleRegistrationFormAfterSave(@Valid RegistrationForm registrationForm){
+
+        TakenWorkshop tw = new TakenWorkshop();
+        tw.setRegistrationForm(registrationForm);
+        tw.setWorkshopGroup(registrationForm.getDesiredWorkshop().getWorkshopGroups().get(0));
+        tw.setWorkshopState(WorkshopState.ONPERFORMING);
+        registrationForm.getDesiredWorkshop().setCapacity(registrationForm.getDesiredWorkshop().getCapacity() - 1);
+        takenWorkshopRepository.save(tw);
+        registrationForm.setTakenWorkshop(tw);
+    }
+
+    //TODO: Add after delete event handler
 }

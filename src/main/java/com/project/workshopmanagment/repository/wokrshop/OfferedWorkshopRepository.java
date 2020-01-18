@@ -7,7 +7,7 @@ import org.springframework.security.access.prepost.PostAuthorize;
 
 public interface OfferedWorkshopRepository extends CrudRepository<OfferedWorkshop, Long> {
 
-    @PostAuthorize("hasAuthority('ROLE_SYSADMIN')")
+    @PostAuthorize("hasAnyAuthority('ROLE_SYSADMIN', 'ROLE_ORGANIZER')")
     <S extends OfferedWorkshop> S save(S s);
 
 }

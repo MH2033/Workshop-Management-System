@@ -4,14 +4,14 @@ import com.project.workshopmanagment.entity.GraderRequest;
 import com.project.workshopmanagment.entity.form.Respondable;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
 public class WorkshopGroup extends Respondable {
-    //@Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
-    //private Long databaseId;
 
+    @NotBlank(message = "GroupId cannot be blank")
     private String groupId;
 
     public WorkshopGroup() {
@@ -24,6 +24,7 @@ public class WorkshopGroup extends Respondable {
         this.takenWorkshops = takenWorkshops;
     }
 
+    @NotNull(message = "OfferedWorkshop cannot be empty")
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "offeredworkshop_id")
     private OfferedWorkshop offeredWorkshop;

@@ -4,20 +4,21 @@ import com.project.workshopmanagment.entity.RegistrationForm;
 import com.project.workshopmanagment.entity.enums.WorkshopState;
 import com.project.workshopmanagment.entity.form.Answer;
 import com.project.workshopmanagment.entity.form.Respondable;
-import com.project.workshopmanagment.entity.workshop.WorkshopGroup;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity
 public class TakenWorkshop extends Respondable {
-    //@Id
-    //private Long id;
 
+    @NotNull(message = "WorkshopGroup cannot be empty")
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "WorkshopGroup_id")
     private WorkshopGroup workshopGroup;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "takenWorkshop")
+    @NotNull(message = "RegistrationForm cannot be empty")
+    @OneToOne(cascade = CascadeType.MERGE)
     private RegistrationForm registrationForm;
 
     private WorkshopState workshopState;
@@ -25,7 +26,7 @@ public class TakenWorkshop extends Respondable {
     public TakenWorkshop() {
     }
 
-    public TakenWorkshop(Long id, Answer answer) {
+    public TakenWorkshop(Long id, List<Answer> answer) {
         super(id, answer);
     }
 

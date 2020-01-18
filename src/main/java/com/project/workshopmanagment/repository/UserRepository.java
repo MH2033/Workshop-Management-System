@@ -16,8 +16,8 @@ public interface UserRepository extends CrudRepository<User, Long> {
     User findByEmail(String email);
     User findByUsername(String userName);
 
-    @PostAuthorize("hasAuthority('ROLE_SYSADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_SYSADMIN')")
     Iterable<User> findAll();
-    @PostAuthorize("hasAuthority('ROLE_'+ #id)")
+    @PreAuthorize("hasAuthority('ROLE_'+ #id)")
     Optional<User> findById(@PathVariable Long id);
 }

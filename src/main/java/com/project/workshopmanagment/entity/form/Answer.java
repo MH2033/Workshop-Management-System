@@ -3,6 +3,7 @@ package com.project.workshopmanagment.entity.form;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
@@ -18,7 +19,9 @@ public class Answer {
     @Column(nullable = false, updatable=false)
     private Date created;
 
-    @OneToOne(cascade = CascadeType.MERGE, mappedBy = "answer")
+    @NotNull(message = "Respondable cannot be null")
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "respondable_id")
     private Respondable respondable;
 
     @ManyToOne(cascade = CascadeType.MERGE)

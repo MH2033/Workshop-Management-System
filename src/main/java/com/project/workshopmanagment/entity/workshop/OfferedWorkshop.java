@@ -5,6 +5,7 @@ import com.project.workshopmanagment.entity.role.Organizer;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import java.time.Duration;
 import java.util.Date;
 import java.util.List;
@@ -24,6 +25,10 @@ public class OfferedWorkshop {
 
     private Duration duration;
 
+    @NotNull
+    @Positive
+    private int capacity;
+
     private String offeringLocation;
 
     private int price = 0;
@@ -42,11 +47,12 @@ public class OfferedWorkshop {
     public OfferedWorkshop() {
     }
 
-    public OfferedWorkshop(Long id, Organizer organizer, List<Date> offeringDatesAndTimes, Duration duration, String offeringLocation, int price, List<WorkshopGroup> workshopGroups, Workshop workshop) {
+    public OfferedWorkshop(Long id, Organizer organizer, List<Date> offeringDatesAndTimes, Duration duration, @NotNull @Positive int capacity, String offeringLocation, int price, List<WorkshopGroup> workshopGroups, Workshop workshop) {
         this.id = id;
         this.organizer = organizer;
         this.offeringDatesAndTimes = offeringDatesAndTimes;
         this.duration = duration;
+        this.capacity = capacity;
         this.offeringLocation = offeringLocation;
         this.price = price;
         this.workshopGroups = workshopGroups;
@@ -115,5 +121,13 @@ public class OfferedWorkshop {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
     }
 }

@@ -1,6 +1,7 @@
 package com.project.workshopmanagment.entity.form;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
@@ -9,17 +10,16 @@ public abstract class Respondable {
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "answer_id")
-    private Answer answer;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "respondable")
+    private List<Answer> answerList;
 
 
     public Respondable() {
     }
 
-    protected Respondable(Long id, Answer answer) {
+    protected Respondable(Long id, List<Answer> answer) {
         this.id = id;
-        this.answer = answer;
+        this.answerList = answer;
     }
 
     public Long getId() {
@@ -30,11 +30,11 @@ public abstract class Respondable {
         this.id = id;
     }
 
-    public Answer getAnswer() {
-        return answer;
+    public List<Answer> getAnswerList() {
+        return answerList;
     }
 
-    public void setAnswer(Answer answer) {
-        this.answer = answer;
+    public void setAnswerList(List<Answer> answer) {
+        this.answerList = answer;
     }
 }

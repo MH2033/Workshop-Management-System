@@ -10,6 +10,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -23,10 +24,10 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
+    @NotBlank(message = "FirstName cannot be empty")
     private String firstName;
 
-    @NotBlank
+    @NotBlank(message = "LastName cannot be empty")
     private String lastName;
 
     @Column(length = 10, unique = true)
@@ -35,17 +36,23 @@ public class User {
     @Column(unique = true)
     private String username;
 
-    @NotBlank
+    @NotBlank(message = "Password cannot be empty")
     private String hashedPassword;
 
-    @NotBlank
+    @NotBlank(message = "Email cannot be empty")
     @Column(unique = true)
-    @Email
+    @Email(message = "Wrong email format")
     private String email;
 
     private String address;
 
+    @Column(length = 10)
+    private String postalCode;
+
+    @Column(unique = true)
+    @Pattern(regexp = "^(09)[0-9]{9}$", message = "Wrong phoneNumber format")
     private String phoneNumber;
+
     private Gender gender;
 
     private Date birthDate;

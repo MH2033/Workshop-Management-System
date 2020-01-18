@@ -17,11 +17,11 @@ public class RegistrationForm {
     @JoinColumn(name = "participant_id")
     private Participant participant;
 
-    @NotNull
+    @NotNull(message = "Desired workshop cannot be empty")
     @OneToOne
     private OfferedWorkshop desiredWorkshop;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "registrationForm")
     private TakenWorkshop takenWorkshop;
 
     public RegistrationForm() {
