@@ -8,6 +8,7 @@ import com.project.workshopmanagment.entity.enums.WorkshopState;
 import com.project.workshopmanagment.repository.wokrshop.TakenWorkshopRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.core.annotation.HandleAfterCreate;
+import org.springframework.data.rest.core.annotation.HandleAfterDelete;
 import org.springframework.data.rest.core.annotation.HandleBeforeCreate;
 import org.springframework.data.rest.core.annotation.RepositoryEventHandler;
 
@@ -68,5 +69,8 @@ public class RegistrationFormEventHandler {
         registrationForm.setTakenWorkshop(tw);
     }
 
-    //TODO: Add after delete event handler
+    @HandleAfterDelete
+    public void handleRegistrationFormAfterDelete(@Valid RegistrationForm registrationForm){
+        registrationForm.getDesiredWorkshop().setCapacity(registrationForm.getDesiredWorkshop().getCapacity() + 1);
+    }
 }
