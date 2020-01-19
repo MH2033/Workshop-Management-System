@@ -9,5 +9,13 @@ public interface WorkshopRepository extends CrudRepository<Workshop, Long> {
 
     @PostAuthorize("hasAuthority('ROLE_SYSADMIN')")
     <S extends Workshop> S save(S s);
+    @PostAuthorize("hasAuthority('ROLE_SYSADMIN')")
+    void delete(Workshop workshop);
+    @PostAuthorize("hasAuthority('ROLE_SYSADMIN')")
+    void deleteAll();
+    @PostAuthorize("hasAuthority('ROLE_SYSADMIN')")
+    void deleteById(Long aLong);
+    @PostAuthorize("hasAuthority('ROLE_SYSADMIN')")
+    void deleteAll(Iterable<? extends Workshop> iterable);
 
 }
