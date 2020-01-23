@@ -61,4 +61,7 @@ public class RepositoryConfiguration {
     AnswerEventHandler answerEventHandler(){
         return new AnswerEventHandler();
     }
+
+    @Bean
+    UserEventHandler userEventHandler(){ return new UserEventHandler();}
 }

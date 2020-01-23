@@ -61,5 +61,9 @@ public class UserController {
 
         return null;
     }
+    @RequestMapping(value = "/users/token", method = RequestMethod.GET)
+    public @ResponseBody User getUser() {
+        return userRepository.findById(Long.parseLong(JWTAuthorizationFilter.loginPrincipal.getId())).get();
+    }
 
 }
